@@ -1,6 +1,12 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  resources :patients do
+    resources :appointments, shallow: true
+  end
+  resources :doctors do
+      resources :appointments, shallow: true
+  end
   namespace :admin do
     resources :users
     resources :announcements

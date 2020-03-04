@@ -1,0 +1,41 @@
+
+
+
+<div class="row">
+  <div class="col-sm-6">
+    <h1>Patients</h1>
+  </div>
+
+  <div class="col-sm-6 text-right">
+  <%= link_to new_patient_path, class: 'btn btn-primary' do %>
+    Add New Patient
+  <% end %>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+    
+        <th>Name</th>
+    
+
+            
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @patients.each do |patient| %>
+        <%= content_tag :tr, id: dom_id(patient), class: dom_class(patient) do %>
+          
+            <td><%= link_to patient.name, patient %></td>
+          
+
+          
+          
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

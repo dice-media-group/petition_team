@@ -1,0 +1,15 @@
+<div class="page-header">
+  <%= link_to doctors_path, class: 'btn btn-default' do %>
+    All Doctors
+  <% end %>
+  <%= link_to edit_doctor_path(@doctor), class: 'btn btn-primary' do %>
+    Edit
+  <% end %>
+  <h1>Show doctor</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Name:</dt>
+  <dd><%= @doctor.name %></dd>
+
+</dl>

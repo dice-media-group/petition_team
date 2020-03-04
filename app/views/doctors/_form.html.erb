@@ -1,0 +1,34 @@
+<%= form_with(model: doctor, local: true) do |form| %>
+  <% if doctor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(doctor.errors.count, "error") %> prohibited this doctor from being saved:</h2>
+
+      <ul>
+      <% doctor.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <% if doctor.persisted? %>
+      <div class="float-right">
+        <%= link_to 'Destroy', doctor, method: :delete, class: "text-danger", data: { confirm: 'Are you sure?' } %>
+      </div>
+    <% end %>
+
+    <%= form.submit class: 'btn btn-primary' %>
+
+    <% if doctor.persisted? %>
+      <%= link_to "Cancel", doctor, class: "btn btn-link" %>
+    <% else %>
+      <%= link_to "Cancel", doctors_path, class: "btn btn-link" %>
+    <% end %>
+  </div>
+<% end %>
