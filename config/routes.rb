@@ -1,12 +1,17 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+<<<<<<< HEAD
   resources :patients do
     resources :appointments, shallow: true
   end
   resources :doctors do
       resources :appointments, shallow: true
   end
+=======
+  resources :ballot_inititives
+  resources :teams
+>>>>>>> feature/init_team_membership
   namespace :admin do
     resources :users
     resources :announcements

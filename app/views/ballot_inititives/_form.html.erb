@@ -1,0 +1,39 @@
+<%= form_with(model: ballot_inititive, local: true) do |form| %>
+  <% if ballot_inititive.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(ballot_inititive.errors.count, "error") %> prohibited this ballot_inititive from being saved:</h2>
+
+      <ul>
+      <% ballot_inititive.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :team_id %>
+    <%= form.text_field :team_id, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <% if ballot_inititive.persisted? %>
+      <div class="float-right">
+        <%= link_to 'Destroy', ballot_inititive, method: :delete, class: "text-danger", data: { confirm: 'Are you sure?' } %>
+      </div>
+    <% end %>
+
+    <%= form.submit class: 'btn btn-primary' %>
+
+    <% if ballot_inititive.persisted? %>
+      <%= link_to "Cancel", ballot_inititive, class: "btn btn-link" %>
+    <% else %>
+      <%= link_to "Cancel", ballot_inititives_path, class: "btn btn-link" %>
+    <% end %>
+  </div>
+<% end %>
