@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  resources :ballot_inititives
+  resources :teams
   namespace :admin do
     resources :users
     resources :announcements

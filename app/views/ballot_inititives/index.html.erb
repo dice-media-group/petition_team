@@ -1,0 +1,43 @@
+
+
+
+<div class="row">
+  <div class="col-sm-6">
+    <h1>Ballot_inititives</h1>
+  </div>
+
+  <div class="col-sm-6 text-right">
+  <%= link_to new_ballot_inititive_path, class: 'btn btn-primary' do %>
+    Add New Ballot inititive
+  <% end %>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+    
+        <th>Name</th>
+    
+
+            <th>Team</th>
+            
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @ballot_inititives.each do |ballot_inititive| %>
+        <%= content_tag :tr, id: dom_id(ballot_inititive), class: dom_class(ballot_inititive) do %>
+          
+            <td><%= link_to ballot_inititive.name, ballot_inititive %></td>
+          
+
+                      <td><%= ballot_inititive.team %></td>
+          
+          
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

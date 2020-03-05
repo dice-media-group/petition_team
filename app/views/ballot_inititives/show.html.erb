@@ -1,0 +1,18 @@
+<div class="page-header">
+  <%= link_to ballot_inititives_path, class: 'btn btn-default' do %>
+    All Ballot_inititives
+  <% end %>
+  <%= link_to edit_ballot_inititive_path(@ballot_inititive), class: 'btn btn-primary' do %>
+    Edit
+  <% end %>
+  <h1>Show ballot_inititive</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Name:</dt>
+  <dd><%= @ballot_inititive.name %></dd>
+
+  <dt>Team:</dt>
+  <dd><%= @ballot_inititive.team %></dd>
+
+</dl>
