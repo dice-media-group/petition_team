@@ -8,7 +8,10 @@ Rails.application.routes.draw do
       resources :appointments, shallow: true
   end
   resources :ballot_inititives
-  resources :teams
+  resources :teams do
+    resources :team_users, path: :users,  module: :teams
+  end
+
   namespace :admin do
     resources :users
     resources :announcements

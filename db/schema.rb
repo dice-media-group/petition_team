@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2020_03_04_201821) do
-=======
-ActiveRecord::Schema.define(version: 2020_03_04_221025) do
->>>>>>> feature/init_team_membership
+ActiveRecord::Schema.define(version: 2020_03_13_022105) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,8 +35,6 @@ ActiveRecord::Schema.define(version: 2020_03_04_221025) do
     t.index ["patient_id"], name: "index_appointments_on_patient_id"
   end
 
-<<<<<<< HEAD
-=======
   create_table "ballot_inititives", force: :cascade do |t|
     t.string "name"
     t.bigint "team_id", null: false
@@ -49,7 +43,6 @@ ActiveRecord::Schema.define(version: 2020_03_04_221025) do
     t.index ["team_id"], name: "index_ballot_inititives_on_team_id"
   end
 
->>>>>>> feature/init_team_membership
   create_table "doctors", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -65,6 +58,17 @@ ActiveRecord::Schema.define(version: 2020_03_04_221025) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "memberships", force: :cascade do |t|
+    t.boolean "is_suspended"
+    t.bigint "team_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "role"
+    t.index ["team_id"], name: "index_memberships_on_team_id"
+    t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -98,6 +102,16 @@ ActiveRecord::Schema.define(version: 2020_03_04_221025) do
     t.index ["user_id"], name: "index_services_on_user_id"
   end
 
+  create_table "team_users", force: :cascade do |t|
+    t.bigint "team_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "role"
+    t.index ["team_id"], name: "index_team_users_on_team_id"
+    t.index ["user_id"], name: "index_team_users_on_user_id"
+  end
+
   create_table "teams", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -117,15 +131,28 @@ ActiveRecord::Schema.define(version: 2020_03_04_221025) do
     t.boolean "admin", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer "invitation_limit"
+    t.string "invited_by_type"
+    t.bigint "invited_by_id"
+    t.integer "invitations_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
+    t.index ["invitations_count"], name: "index_users_on_invitations_count"
+    t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
+    t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by_type_and_invited_by_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "appointments", "doctors"
   add_foreign_key "appointments", "patients"
-<<<<<<< HEAD
-=======
   add_foreign_key "ballot_inititives", "teams"
->>>>>>> feature/init_team_membership
+  add_foreign_key "memberships", "teams"
+  add_foreign_key "memberships", "users"
   add_foreign_key "services", "users"
+  add_foreign_key "team_users", "teams"
+  add_foreign_key "team_users", "users"
 end

@@ -1,10 +1,11 @@
 class TeamsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_team, only: [:show, :edit, :update, :destroy]
 
   # GET /teams
   # GET /teams.json
   def index
-    @teams = Team.all
+    @teams = current_user.teams.all
   end
 
   # GET /teams/1
@@ -15,18 +16,19 @@ class TeamsController < ApplicationController
   # GET /teams/new
   def new
     @team = Team.new
-    @ballot_inititives = @team. ballot_inititives.new
+    @ballot_inititives = @team.ballot_inititives.new
   end
 
   # GET /teams/1/edit
   def edit
+    @users = User.all.pluck(:email, :id)
   end
 
   # POST /teams
   # POST /teams.json
   def create
     @team = Team.new(team_params)
-
+    @team.team_users.new(user: current_user, role: "owner")
     respond_to do |format|
       if @team.save
         format.html { redirect_to @team, notice: 'Team was successfully created.' }
@@ -65,7 +67,7 @@ class TeamsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_team
-      @team = Team.find(params[:id])
+      @team = current_user.teams.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
